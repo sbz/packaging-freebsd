@@ -11,11 +11,14 @@ COMMENT=	Crowdsec lightweight and collaborative security engine
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+BUILD_DEPENDS=	git>0:devel/git
+
 USES=		go:modules
 
 USE_GITHUB=yes
 
 GH_ACCOUNT=	crowdsecurity
+GH_PROJECT=	crowdsec
 
 GH_TUPLE=	\
 		go-playground:locales:v0.13.0:go_playground_locales/vendor/github.com/go-playground/locales \
@@ -92,5 +95,10 @@ GO_TARGET=	./cmd/crowdsec \
 
 PLIST_FILES=	bin/crowdsec \
 		bin/crowdsec-cli
+
+pre-build:
+		@${MKDIR} ${GO_WRKSRC:H}
+		@${LN} -sf ${WRKSRC} ${GO_WRKSRC}
+		@(cd ${GO_WRKSRC}; ${SETENV} GOPROXY=direct ${GO_ENV} ${GO_CMD} mod vendor)
 
 .include <bsd.port.mk>
