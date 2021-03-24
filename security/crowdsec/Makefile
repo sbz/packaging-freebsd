@@ -21,6 +21,8 @@ GO_BUILDFLAGS=	-ldflags "-s -w \
 GO_TARGET=	./cmd/crowdsec \
 		./cmd/crowdsec-cli
 
+USE_RC_SUBR=	crowdsec
+
 PLIST_FILES=	bin/crowdsec \
 		bin/crowdsec-cli
 
