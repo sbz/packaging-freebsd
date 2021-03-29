@@ -1,7 +1,7 @@
-# $FreeBSD$
+# $FreeBSD: head/security/crowdsec/Makefile 569135 2021-03-24 15:45:18Z sbz $
 
 PORTNAME=	crowdsec
-PORTVERSION=	1.0.7
+PORTVERSION=	1.0.9
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
