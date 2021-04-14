@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# $FreeBSD$
+#
+# PROVIDE: crowdsec
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+#
+
+. /etc/rc.subr
+
+: ${crowdsec_config:=%%PREFIX%%/etc/crowdsec/cs-firewall-bouncer/cs-firewall-bouncer.yaml}
+
+name=crowdsec_firewall
+desc="Crowdsec Firewall bouncer"
+
+pidfile=/var/run/$name.pid
+required_files="$crowdsec_config"
+procname="%%PREFIX%%/crowdsec-firewall-bouncer"
+command=/usr/sbin/daemon
+command_args="-fp $pidfile -t '$desc' -- '$procname' -c '$crowdsec_config'"
+
+run_rc_command $1
