@@ -1,5 +1,6 @@
 PORTNAME=	crowdsec-firewall-bouncer
-DISTVERSION=	20210413
+PORTVERSION=	0.0.12
+DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
 MAINTAINER=	sbz@FreeBSD.org
@@ -11,9 +12,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 USES=		go
 USE_GITHUB=	yes
 
-GH_ACCOUNT=	sbz
+GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	cs-firewall-bouncer
-GH_TAGNAME=	e218300
 
 USE_RC_SUBR=	crowdsec-firewall-bouncer
 
@@ -26,7 +26,7 @@ PLIST_FILES=	bin/crowdsec-firewall-bouncer
 
 
 do-build:
-	cd ${WRKSRC}; ${GO_CMD} mod download; ${GO_CMD} build
+	cd ${WRKSRC}; ${GO_CMD} mod download; ${GO_CMD} build ${GO_BUILDFLAGS}
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/cs-firewall-bouncer \
