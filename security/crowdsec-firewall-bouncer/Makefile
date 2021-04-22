@@ -14,13 +14,16 @@ USE_GITHUB=	yes
 
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	cs-firewall-bouncer
+GH_TAGNAME=	b7db6f9
 
 USE_RC_SUBR=	crowdsec-firewall-bouncer
 
 GO_MODULE=	github.com/crowdsecurity/cs-firewall-bouncer
 GO_TARGET=	./crowdsec-firewall-bouncer
 GO_BUILDFLAGS=	-ldflags "-s -w \
-		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.Version=${PORTVERSION}"
+		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.Version=${PORTVERSION} \
+		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.BuildDate=20210422 \
+		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.Tag=freebsd"
 
 PLIST_FILES=	bin/crowdsec-firewall-bouncer
 
