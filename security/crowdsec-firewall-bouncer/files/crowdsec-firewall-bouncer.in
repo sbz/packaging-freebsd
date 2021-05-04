@@ -2,22 +2,25 @@
 #
 # $FreeBSD$
 #
-# PROVIDE: crowdsec
-# REQUIRE: LOGIN
+# PROVIDE: crowdsec_firewall
+# REQUIRE: LOGIN DAEMON NETWORKING
 # KEYWORD: shutdown
 #
 
 . /etc/rc.subr
 
-: ${crowdsec_config:=%%PREFIX%%/etc/crowdsec/cs-firewall-bouncer/cs-firewall-bouncer.yaml}
+: ${crowdsec_firewall_config:=%%PREFIX%%/etc/crowdsec/cs-firewall-bouncer/cs-firewall-bouncer.yaml}
 
 name=crowdsec_firewall
 desc="Crowdsec Firewall bouncer"
+rcvar=crowdsec_firewall_enable
+
+load_rc_config $name
 
 pidfile=/var/run/$name.pid
-required_files="$crowdsec_config"
-procname="%%PREFIX%%/crowdsec-firewall-bouncer"
+required_files="$crowdsec_firewall_config"
+procname="%%PREFIX%%/bin/crowdsec-firewall-bouncer"
 command=/usr/sbin/daemon
-command_args="-fp $pidfile -t '$desc' -- '$procname' -c '$crowdsec_config'"
+command_args="-fp $pidfile -t '$desc' -- '$procname' -c '$crowdsec_firewall_config'"
 
 run_rc_command $1
