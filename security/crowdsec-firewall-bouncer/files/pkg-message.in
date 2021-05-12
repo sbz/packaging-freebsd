@@ -1,0 +1,14 @@
+[
+{ type: install
+  message: <<EOM
+
+crowdsec-firewall-bouncer is installed.
+
+You need to edit the config file %%ETCDIR%%/cs-firewall-bouncer.yaml, your pf
+config and enable rc via sysrc
+
+# cp %%ETCDIR%%/cs-firewall-bouncer.yaml{.sample,,}
+# sysrc crowdsec_firewall_enable="YES"
+EOM
+}
+]

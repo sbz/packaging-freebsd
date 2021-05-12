@@ -9,27 +9,31 @@ COMMENT=	Crowdsec bouncer written in golang for firewalls
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		go
-USE_GITHUB=	yes
+RUN_DEPENDS=	crowdsec>0:security/crowdsec
 
-GH_ACCOUNT=	crowdsecurity
-GH_PROJECT=	cs-firewall-bouncer
+USES=		go:modules
 
-USE_RC_SUBR=	crowdsec-firewall-bouncer
+USE_RC_SUBR=	crowdsec_firewall
 
 GO_MODULE=	github.com/crowdsecurity/cs-firewall-bouncer
-GO_TARGET=	./crowdsec-firewall-bouncer
+
 GO_BUILDFLAGS=	-ldflags "-s -w \
 		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.Version=v${PORTVERSION} \
 		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.Tag=freebsd"
 
-PLIST_FILES=	bin/crowdsec-firewall-bouncer
+SUB_FILES=	pkg-message
 
-do-build:
-	cd ${WRKSRC}; ${GO_CMD} mod download; ${GO_CMD} build ${GO_BUILDFLAGS}
+post-patch:
+	${REINPLACE_CMD} 's,$${BACKEND},pf,g' \
+		${WRKSRC}/config/cs-firewall-bouncer.yaml
 
 do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/cs-firewall-bouncer \
-		${STAGEDIR}/${PREFIX}/bin/crowdsec-firewall-bouncer
+	@${MKDIR} ${STAGEDIR}${ETCDIR}
+
+	${INSTALL_DATA} ${WRKSRC}/config/cs-firewall-bouncer.yaml \
+		${STAGEDIR}${ETCDIR}/cs-firewall-bouncer.yaml.sample
+
+	${INSTALL_PROGRAM} ${WRKDIR}/bin/crowdsec-firewall-bouncer \
+		${STAGEDIR}${PREFIX}/bin/cs-firewall-bouncer
 
 .include <bsd.port.mk>
