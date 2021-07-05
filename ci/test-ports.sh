@@ -1,45 +1,67 @@
 #!/usr/bin/env bash
 
-set -x
+set -o nounset
+set -o pipefail
+
+: ${PORTSDIR:="/usr/ports"}
+
+[[ ! -f $(command -v poudriere) ]] && {
+    echo poudriere not found, exiting
+    exit 1
+}
 
 echo "run test ports script"
 
-portsnap cron
+checkport() {
+    local origin="$1"
 
-pkg -vvvv
+    echo "-> port ${origin}"
+    echo "Makefile(MD5): $(md5 ${PORTSDIR}/${origin}/Makefile)"
+    echo "Version: $(make -C ${PORTSDIR}/${origin} -V PORTVERSION)"
+}
 
-#git clone --depth 1 https://github.com/sbz/packaging-freebsd/
-#cd packaging-freebsd
-#rm -rf /usr/ports/security/crowdsec 
-#rm -rf /usr/ports/security/crowdsec-firewall-bouncer
-#cp -r security/crowdsec /usr/ports/security/
-#cp -r security/crowdsec-firewall-bouncer /ur/ports/security/
+testport() {
+    local origin="$1"
 
-echo List ports
-poudriere ports -l
+    echo "-> dry"
+    poudriere testport -j 12amd64 -p portsdir -o "${origin}" -n
 
-echo List jails
-poudriere jail -l
+    echo "-> full"
+    poudriere testport -j 12amd64 -p portsdir -o "${origin}"
+}
 
-ls -l1F /usr/ports/security/crowdsec/*
-md5 /usr/ports/security/crowdsec/Makefile
+main() {
+    portsnap cron
 
-ls -l1F /usr/ports/security/crowdsec-firewall-bouncer/*
-md5 /usr/ports/security/crowdsec-firewall-bouncer/Makefile
+    git clone --depth 1 https://github.com/sbz/packaging-freebsd/
+    cd packaging-freebsd
+    rm -rf ${PORTSDIR}/security/crowdsec 
+    rm -rf ${PORTSDIR}/crowdsec-firewall-bouncer
+    cp -r security/crowdsec ${PORTSDIR}/security/
+    cp -r security/crowdsec-firewall-bouncer ${PORTSDIR}/security/
 
-#make -C /usr/ports/security/crowdsec make makesum
-#make -C /usr/ports/security/crowdsec-firewall-bouncer make makesum
+    echo "-> list ports"
+    poudriere ports -l
 
-cd /usr/ports
-for origin in "security/crowdsec" "security/crowdsec-firewall-bouncer"; do
+    echo "-> list jails"
+    poudriere jail -l
 
-    echo "-> Testing ${origin}"
+    checkport "security/crowdsec"
+    checkport "security/crowdsec-firewall-bouncer"
 
-    echo "Dry Run"
-    poudriere testport -j 12amd64 -p portsdir -o ${origin} -n
+    cd "${PORTSDIR}"
+    for origin in "security/crowdsec" "security/crowdsec-firewall-bouncer"; do
 
-    echo "Full Run"
-    poudriere testport -j 12amd64 -p portsdir -o ${origin}
+        echo "-> testing ${origin}"
 
-    echo "<- done"
-done
+        testport "${origin}"
+
+        echo "<- done"
+    done
+
+    exit 0
+}
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+        main "$@"
+fi
