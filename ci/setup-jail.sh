@@ -1,28 +1,37 @@
 #!/usr/bin/env bash
 
-set -x
+set -o nounset
+set -o pipefail
 
-echo "run setup jail script"
+: ${PORTSDIR:="/usr/ports"}
+: ${VERSION:="12.2-RELEASE"}
+: ${ARCH="amd64"}
 
-echo "[+] setup ports"
+[[ ! -f $(command -v poudriere) ]] && {
+    echo poudriere not found, exiting
+    exit 1
+}
 
-echo ${USER}
+main() {
+    echo "run setup jail script"
 
-id
+    echo "-> create ports"
 
-portsnap fetch extract
+    poudriere ports -c -M "${PORTSDIR}" -f none -p portsdir -m null
+    poudriere ports -l
 
-git clone --depth 1 https://github.com/sbz/packaging-freebsd/
-cd packaging-freebsd
-rm -rf /usr/ports/security/crowdsec 
-rm -rf /usr/ports/security/crowdsec-firewall-bouncer
-cp -r security/crowdsec /usr/ports/security/
-cp -r security/crowdsec-firewall-bouncer /ur/ports/security/
+    echo "-> create jail"
 
-poudriere ports -c -M /usr/ports -f none -p portsdir -m null
+    poudriere jail -c -j "${VERSION:0:2}${ARCH}" \
+                      -v "${VERSION}" \
+                      -p portsdir \
+                      -a "${ARCH}" \
+                      -m ftp
+    poudriere jail -l
 
-echo "[+] setup jail"
+    echo "done"
+}
 
-poudriere jail -c -j 12amd64 -v 12.2-RELEASE -p portsdir -a amd64 -m ftp
-
-echo "done"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+        main "$@"
+fi

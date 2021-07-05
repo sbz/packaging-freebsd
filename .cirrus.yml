@@ -11,7 +11,7 @@ env:
 task:
   timeout_in: 120m
   install_script:
-  - pkg install -y poudriere bash git
+  - pkg install -y poudriere bash git-lite
   script:
   - bash ci/setup-jail.sh
   test_script:
