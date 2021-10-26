@@ -1,5 +1,5 @@
 PORTNAME=	crowdsec
-PORTVERSION=	1.1.1
+PORTVERSION=	1.2.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -30,7 +30,13 @@ post-patch:
 		${WRKSRC}/pkg/csconfig/config.go \
 		${WRKSRC}/cmd/crowdsec-cli/machines.go \
 		${WRKSRC}/cmd/crowdsec-cli/main.go \
-		${WRKSRC}/cmd/crowdsec/main.go
+		${WRKSRC}/cmd/crowdsec/main.go \
+		${WRKSRC}/config/config.yaml
+
+	@${REINPLACE_CMD} 's,/var/lib/,/var/db/,g' \
+		${WRKSRC}/pkg/csconfig/config.go \
+		${WRKSRC}/pkg/metabase/database.go \
+		${WRKSRC}/config/config.yaml
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${ETCDIR}
@@ -39,7 +45,16 @@ do-install:
 	@${MV} ${STAGEDIR}${ETCDIR}/config.yaml \
 		${STAGEDIR}${ETCDIR}/config.yaml.sample
 
+	@${MV} ${STAGEDIR}${ETCDIR}/local_api_credentials.yaml \
+		${STAGEDIR}${ETCDIR}/local_api_credentials.yaml.sample
+
+	@${MV} ${STAGEDIR}${ETCDIR}/online_api_credentials.yaml \
+		${STAGEDIR}${ETCDIR}/online_api_credentials.yaml.sample
+
+	@${MKDIR} ${STAGEDIR}${ETCDIR}/hub
+	@${MKDIR} ${STAGEDIR}/var/db/crowdsec/data
+
 	${INSTALL_PROGRAM} ${WRKDIR}/bin/crowdsec ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_PROGRAM} ${WRKDIR}/bin/crowdsec-cli ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKDIR}/bin/crowdsec-cli ${STAGEDIR}${PREFIX}/bin/cscli
 
 .include <bsd.port.mk>

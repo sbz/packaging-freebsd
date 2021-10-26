@@ -1,5 +1,5 @@
 PORTNAME=	crowdsec-firewall-bouncer
-PORTVERSION=	0.0.13
+PORTVERSION=	0.0.16
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 

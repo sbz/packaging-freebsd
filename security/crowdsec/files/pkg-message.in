@@ -4,7 +4,7 @@
 
 crowdsec is installed.
 
-You need to edit the agent config file %%ETCDIR%%/crowdsec.yaml and
+You need to edit the agent config file %%ETCDIR%%/config.yaml and
 enable rc via sysrc.
 
 # sysrc crowdsec_enable="YES"

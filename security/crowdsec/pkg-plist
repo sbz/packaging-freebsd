@@ -1,12 +1,12 @@
 @sample %%ETCDIR%%/config.yaml.sample
+@sample %%ETCDIR%%/local_api_credentials.yaml.sample
+@sample %%ETCDIR%%/online_api_credentials.yaml.sample
 bin/crowdsec
-bin/crowdsec-cli
+bin/cscli
 %%ETCDIR%%/acquis.yaml
 %%ETCDIR%%/crowdsec.service
 %%ETCDIR%%/crowdsec_pull
 %%ETCDIR%%/dev.yaml
-%%ETCDIR%%/local_api_credentials.yaml
-%%ETCDIR%%/online_api_credentials.yaml
 %%ETCDIR%%/patterns/aws
 %%ETCDIR%%/patterns/bacula
 %%ETCDIR%%/patterns/bro
