@@ -6,8 +6,6 @@
 @sample %%ETCDIR%%/simulation.yaml.sample
 bin/crowdsec
 bin/cscli
-%%ETCDIR%%/crowdsec.service
-%%ETCDIR%%/crowdsec_pull
 %%ETCDIR%%/patterns/aws
 %%ETCDIR%%/patterns/bacula
 %%ETCDIR%%/patterns/bro
