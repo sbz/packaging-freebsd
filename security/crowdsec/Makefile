@@ -32,23 +32,37 @@ post-patch:
 		${WRKSRC}/cmd/crowdsec-cli/machines.go \
 		${WRKSRC}/cmd/crowdsec-cli/main.go \
 		${WRKSRC}/cmd/crowdsec/main.go \
-		${WRKSRC}/config/config.yaml
+		${WRKSRC}/config/config.yaml \
+		${WRKSRC}/config/profiles.yaml
 
 	@${REINPLACE_CMD} 's,/var/lib/,/var/db/,g' \
 		${WRKSRC}/pkg/csconfig/config.go \
 		${WRKSRC}/pkg/metabase/database.go \
-		${WRKSRC}/config/config.yaml
+		${WRKSRC}/config/config.yaml \
+		${WRKSRC}/config/profiles.yaml
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${ETCDIR}
 	@(cd ${WRKSRC}/config && ${COPYTREE_SHARE} . ${STAGEDIR}${ETCDIR})
 
+	@${MV} ${STAGEDIR}${ETCDIR}/acquis.yaml \
+		${STAGEDIR}${ETCDIR}/acquis.yaml.sample
+
 	@${MV} ${STAGEDIR}${ETCDIR}/config.yaml \
 		${STAGEDIR}${ETCDIR}/config.yaml.sample
 
+	@${MV} ${STAGEDIR}${ETCDIR}/profiles.yaml \
+		${STAGEDIR}${ETCDIR}/profiles.yaml.sample
+
+	# managed by "cscli simulation"
+	@${MV} ${STAGEDIR}${ETCDIR}/simulation.yaml \
+		${STAGEDIR}${ETCDIR}/simulation.yaml.sample
+
+	# updated by "cscli machines" at first service start
 	@${MV} ${STAGEDIR}${ETCDIR}/local_api_credentials.yaml \
 		${STAGEDIR}${ETCDIR}/local_api_credentials.yaml.sample
 
+	# updated by "cscli capi" at first service start
 	@${MV} ${STAGEDIR}${ETCDIR}/online_api_credentials.yaml \
 		${STAGEDIR}${ETCDIR}/online_api_credentials.yaml.sample
 

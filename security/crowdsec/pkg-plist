@@ -1,9 +1,11 @@
+@sample %%ETCDIR%%/acquis.yaml.sample
 @sample %%ETCDIR%%/config.yaml.sample
 @sample %%ETCDIR%%/local_api_credentials.yaml.sample
 @sample %%ETCDIR%%/online_api_credentials.yaml.sample
+@sample %%ETCDIR%%/profiles.yaml.sample
+@sample %%ETCDIR%%/simulation.yaml.sample
 bin/crowdsec
 bin/cscli
-%%ETCDIR%%/acquis.yaml
 %%ETCDIR%%/crowdsec.service
 %%ETCDIR%%/crowdsec_pull
 %%ETCDIR%%/patterns/aws
@@ -30,5 +32,3 @@ bin/cscli
 %%ETCDIR%%/patterns/smb
 %%ETCDIR%%/patterns/ssh
 %%ETCDIR%%/patterns/tcpdump
-%%ETCDIR%%/profiles.yaml
-%%ETCDIR%%/simulation.yaml
