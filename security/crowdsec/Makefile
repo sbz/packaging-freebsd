@@ -23,7 +23,8 @@ GO_BUILDFLAGS=	-ldflags "-s -w \
 GO_TARGET=	./cmd/crowdsec \
 		./cmd/crowdsec-cli
 
-SUB_FILES=	pkg-message
+SUB_FILES=	pkg-message \
+		pkg-deinstall
 
 post-patch:
 	@${REINPLACE_CMD} 's,/etc/crowdsec/,${ETCDIR}/,g' \

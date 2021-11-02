@@ -1,0 +1,10 @@
+#!/bin/sh
+
+case $2 in
+       DEINSTALL)
+               %%PREFIX%%/etc/rc.d/crowdsec stop
+               ;;
+       POST-DEINSTALL)
+               ;;
+esac
+
