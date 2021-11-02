@@ -4,7 +4,7 @@ set -o nounset
 set -o pipefail
 
 : ${PORTSDIR:="/usr/ports"}
-: ${VERSION:="12.2-RELEASE"}
+: ${VERSION:="13.0-RELEASE"}
 : ${ARCH="amd64"}
 
 [[ ! -f $(command -v poudriere) ]] && {
