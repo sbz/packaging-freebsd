@@ -22,7 +22,8 @@ GO_BUILDFLAGS=	-ldflags "-s -w \
 		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.Tag=freebsd \
 		-X github.com/crowdsecurity/cs-firewall-bouncer/pkg/version.BuildDate=`date -u '+%Y-%m-%d_%I:%M:%S%p'`"
 
-SUB_FILES=	pkg-message
+SUB_FILES=	pkg-message \
+		pkg-deinstall
 
 post-patch:
 	${REINPLACE_CMD} 's,$${BACKEND},pf,g' \
