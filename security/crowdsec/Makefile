@@ -15,6 +15,9 @@ USE_RC_SUBR=	crowdsec
 
 GO_MODULE=	github.com/crowdsecurity/crowdsec
 
+USE_GITHUB=	yes
+GH_ACCOUNT=	mmetc
+
 GO_BUILDFLAGS=	-ldflags "-s -w \
 		-X github.com/crowdsecurity/crowdsec/pkg/cwversion.Version=v${PORTVERSION} \
 		-X github.com/crowdsecurity/crowdsec/pkg/cwversion.System=freebsd \

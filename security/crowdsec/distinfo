@@ -1,5 +1,7 @@
-TIMESTAMP = 1635945186
-SHA256 (go/security_crowdsec/crowdsec-v1.2.1/v1.2.1.mod) = ff2147839af2c5b2878754c5f38cdf6e5369c72e545d271b1bff4650adf6ec08
-SIZE (go/security_crowdsec/crowdsec-v1.2.1/v1.2.1.mod) = 3680
-SHA256 (go/security_crowdsec/crowdsec-v1.2.1/v1.2.1.zip) = d82018bb1c4261b18fb0535c9f374464e12ef4b068063cd7dd4b2e1cca28ffef
-SIZE (go/security_crowdsec/crowdsec-v1.2.1/v1.2.1.zip) = 705062
+TIMESTAMP = 1637321636
+SHA256 (go/security_crowdsec/mmetc-crowdsec-v1.2.1_GH0/v1.2.1.mod) = ff2147839af2c5b2878754c5f38cdf6e5369c72e545d271b1bff4650adf6ec08
+SIZE (go/security_crowdsec/mmetc-crowdsec-v1.2.1_GH0/v1.2.1.mod) = 3680
+SHA256 (go/security_crowdsec/mmetc-crowdsec-v1.2.1_GH0/v1.2.1.zip) = d82018bb1c4261b18fb0535c9f374464e12ef4b068063cd7dd4b2e1cca28ffef
+SIZE (go/security_crowdsec/mmetc-crowdsec-v1.2.1_GH0/v1.2.1.zip) = 705062
+SHA256 (go/security_crowdsec/mmetc-crowdsec-v1.2.1_GH0/mmetc-crowdsec-v1.2.1_GH0.tar.gz) = e3a9bbb70b1995a83c5001d06dbbcb5f59d43e4d7c18b60548f305a62d2dd6a3
+SIZE (go/security_crowdsec/mmetc-crowdsec-v1.2.1_GH0/mmetc-crowdsec-v1.2.1_GH0.tar.gz) = 659398
