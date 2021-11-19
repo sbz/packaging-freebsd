@@ -2,9 +2,7 @@
 
 case $2 in
        DEINSTALL)
-               %%PREFIX%%/etc/rc.d/crowdsec stop
-               ;;
-       POST-DEINSTALL)
+               service crowdsec stop
                ;;
 esac
 
