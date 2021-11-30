@@ -35,14 +35,32 @@ configtest_cmd="${name}_configtest"
 extra_commands="configtest reload"
 
 crowdsec_precmd() {
-    if [ ! -d %%PREFIX%%/etc/crowdsec/hub ]; then
-        %%PREFIX%%/bin/crowdsec-cli hub update || :
+    HUB_DIR=`%%PREFIX%%/bin/cscli config show | grep 'Hub Folder' | head -1 | awk -F: '{gsub(/: /,":"); printf "%s", $2}'`
+    if [ ! -d "${HUB_DIR}" ]; then
+        mkdir -p "${HUB_DIR}"
+        echo "Fetching hub inventory"
+        %%PREFIX%%/bin/cscli hub update || :
     fi
-    if [ -z "`%%PREFIX%%/bin/crowdsec-cli machines list -o raw`" ]; then
-        %%PREFIX%%/bin/crowdsec-cli machines add --auto || :
+
+    DATA_DIR=`%%PREFIX%%/bin/cscli config show | grep 'Data Folder' | awk -F: '{gsub(/: /,":"); printf "%s", $2}'`
+    if [ ! -d "${DATA_DIR}" ]; then
+        mkdir -p "${DATA_DIR}"
     fi
-    if [ ! -s %%PREFIX%%/etc/crowdsec/online_api_credentials.yaml ]; then
-        %%PREFIX%%/bin/crowdsec-cli capi register || :
+
+    if [ -z "`%%PREFIX%%/bin/cscli machines list -o raw`" ]; then
+        echo "Registering LAPI"
+        %%PREFIX%%/bin/cscli machines add --auto || :
+    fi
+
+    CONFIG_DIR=`%%PREFIX%%/bin/cscli config show | grep 'Configuration Folder' | awk -F: '{gsub(/: /,":"); printf "%s", $2}'`
+    if [ ! -s "${CONFIG_DIR}/online_api_credentials.yaml" ]; then
+        echo "Registering CAPI"
+        %%PREFIX%%/bin/cscli capi register || :
+    fi
+
+    if [ ! -f "${DATA_DIR}/GeoLite2-City.mmdb" ]; then
+        echo "Installing GeoIP enricher"
+        %%PREFIX%%/bin/cscli parsers install crowdsecurity/geoip-enrich || :
     fi
 }
 

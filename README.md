@@ -34,3 +34,9 @@ Via binary package
 # pkg install -y crowdsec
 # pkg install -y crowdsec-firewall-bouncer
 ```
+
+# Configuration
+
+When the service is run the first time, it will register the machine to both local and remote APIs. It will also update the plugin repository (hub) and GeoIP information.
+
+Before being actually useful, CrowdSec still needs to be told which logs to watch and which actions to take. Please refer to https://docs.crowdsec.net/docs/intro/
