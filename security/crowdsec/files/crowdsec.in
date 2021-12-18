@@ -59,13 +59,8 @@ crowdsec_precmd() {
         cs_cli capi register || :
     fi
 
-    cs_cli collections inspect crowdsecurity/linux >/dev/null || cs_cli collections install crowdsecurity/linux || :
-
-    DATA_DIR=$(Config ConfigPaths.DataDir)
-    if [ ! -f "${DATA_DIR}/GeoLite2-City.mmdb" ]; then
-        echo "Installing GeoIP enricher"
-        cs_cli parsers install crowdsecurity/geoip-enrich || :
-    fi
+    cs_cli collections inspect crowdsecurity/freebsd | grep ^installed | grep -q true || \
+        cs_cli collections install crowdsecurity/freebsd || :
 }
 
 crowdsec_start()
