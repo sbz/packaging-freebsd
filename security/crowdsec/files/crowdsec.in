@@ -59,7 +59,7 @@ crowdsec_precmd() {
         cs_cli capi register || :
     fi
 
-    cs_cli collections inspect crowdsecurity/freebsd | grep ^installed | grep -q true || \
+    cs_cli collections inspect crowdsecurity/freebsd 2>/dev/null | grep ^installed | grep -q true || \
         cs_cli collections install crowdsecurity/freebsd || :
 }
 
