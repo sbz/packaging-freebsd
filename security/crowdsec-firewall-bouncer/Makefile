@@ -1,5 +1,6 @@
 PORTNAME=	crowdsec-firewall-bouncer
 PORTVERSION=	0.0.20  # NOTE: change BUILD_VERSION and BUILD_TAG as well
+PORTREVISION=	2
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
