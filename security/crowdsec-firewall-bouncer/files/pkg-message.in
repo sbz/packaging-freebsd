@@ -12,15 +12,21 @@ In previous versions, the configuration was in /usr/local/etc/crowdsec-firewall-
 to check if you made any changes there.
 
 If it's the first time, you need to edit your Packet Filter configuration.
+
+Make sure the firewall is active:
+
+----------
+sysrc pf_enable=YES
+pf_enable: NO -> YES
+service pf start
+Enabling pf.
+----------
+
 Add the following in /etc/pf.conf to create the tables:
 
 ----------
-# create crowdsec ipv4 table
 table <crowdsec-blacklists> persist
-
-# create crowdsec ipv6 table
 table <crowdsec6-blacklists> persist
-
 block drop in quick from <crowdsec-blacklists> to any
 block drop in quick from <crowdsec6-blacklists> to any
 ----------
