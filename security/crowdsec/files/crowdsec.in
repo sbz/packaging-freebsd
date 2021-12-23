@@ -48,7 +48,7 @@ crowdsec_precmd() {
         cs_cli hub update || :
     fi
 
-    if [ -z "$(cs_cli machines list -o raw)" ]; then
+    if [ "$(cs_cli machines list -o json)" = "[]" ]; then
         echo "Registering LAPI"
         cs_cli machines add --auto || :
     fi
