@@ -16,9 +16,9 @@ If it's the first time, you need to edit your Packet Filter configuration.
 Make sure the firewall is active:
 
 ----------
-sysrc pf_enable=YES
+# sysrc pf_enable=YES
 pf_enable: NO -> YES
-service pf start
+# service pf start
 Enabling pf.
 ----------
 
