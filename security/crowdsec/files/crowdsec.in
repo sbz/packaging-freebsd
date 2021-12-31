@@ -59,8 +59,14 @@ crowdsec_precmd() {
         cs_cli capi register || :
     fi
 
-    cs_cli collections inspect crowdsecurity/freebsd 2>/dev/null | grep ^installed | grep -q true || \
+    # This would work but takes 30secs to timeout while reading the metrics, because crowdsec is not running yet.
+    #    cs_cli collections inspect crowdsecurity/freebsd 2>/dev/null | grep ^installed | grep -q true || \
+    #        cs_cli collections install crowdsecurity/freebsd || :
+
+    # So we just check for the file
+    if [ ! -e "${CONFIG_DIR}/collections/freebsd.yaml" ]; then
         cs_cli collections install crowdsecurity/freebsd || :
+    fi
 }
 
 crowdsec_start()
