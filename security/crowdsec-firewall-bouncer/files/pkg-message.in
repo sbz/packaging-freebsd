@@ -26,7 +26,7 @@ Then activate the bouncer via sysrc:
 ----------
 # sysrc crowdsec_firewall_enable="YES"
 crowdsec_firewall_enable: NO -> YES
-# service start crowdsec_firewall
+# service crowdsec_firewall start
 ----------
 
 After a few seconds, the bouncer should have created the tables and rules:
