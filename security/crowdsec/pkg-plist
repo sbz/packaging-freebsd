@@ -37,6 +37,7 @@ bin/crowdsec-cli
 %%ETCDIR%%/patterns/smb
 %%ETCDIR%%/patterns/ssh
 %%ETCDIR%%/patterns/tcpdump
+@sample etc/newsyslog.conf.d/crowdsec.conf.sample
 @mode 0755
 lib/crowdsec/plugins/notification-http
 lib/crowdsec/plugins/notification-slack
@@ -44,3 +45,4 @@ lib/crowdsec/plugins/notification-splunk
 @dir %%ETCDIR%%/hub
 @dir /var/db/crowdsec/data
 @dir /var/db/crowdsec
+@dir etc/newsyslog.conf.d

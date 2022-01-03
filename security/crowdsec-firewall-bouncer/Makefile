@@ -1,6 +1,6 @@
 PORTNAME=	crowdsec-firewall-bouncer
 PORTVERSION=	0.0.20  # NOTE: change BUILD_VERSION and BUILD_TAG as well
-PORTREVISION=	2
+PORTREVISION=	3
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -54,5 +54,11 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${ETCDIR}
 	${INSTALL_DATA} ${WRKSRC}/config/crowdsec-firewall-bouncer.yaml \
 		${STAGEDIR}${ETCDIR}/crowdsec-firewall-bouncer.yaml.sample
+
+	#
+	# Log rotation
+	#
+
+	${INSTALL_DATA} ${FILESDIR}/crowdsec-firewall-bouncer.conf-newsyslog ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d/crowdsec-firewall-bouncer.conf.sample
 
 .include <bsd.port.mk>

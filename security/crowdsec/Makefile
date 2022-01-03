@@ -1,6 +1,6 @@
 PORTNAME=	crowdsec
 PORTVERSION=	1.2.2	# NOTE: change BUILD_VERSION and BUILD_TAG as well
-PORTREVISION=	2
+PORTREVISION=	3
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -21,8 +21,6 @@ GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	crowdsec
 GH_TAGNAME=	v1.2.2-freebsd
 #GH_TAGNAME is automatically set from DISTVERSION
-
-USE_RC_SUBR=	crowdsec
 
 USE_RC_SUBR=	crowdsec
 
@@ -121,4 +119,11 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${ETCDIR}/hub
 	@${MKDIR} ${STAGEDIR}/var/db/crowdsec/data
 
+	#
+	# Log rotation
+	#
+
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	${INSTALL_DATA} ${FILESDIR}/crowdsec.conf-newsyslog ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d/crowdsec.conf.sample
+	
 .include <bsd.port.mk>
