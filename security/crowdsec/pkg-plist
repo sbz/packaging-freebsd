@@ -10,6 +10,7 @@ bin/crowdsec-cli
 @sample %%ETCDIR%%/config.yaml.sample
 @sample %%ETCDIR%%/profiles.yaml.sample
 @sample %%ETCDIR%%/simulation.yaml.sample
+@sample %%ETCDIR%%/notifications/email/email.yaml.sample
 @sample %%ETCDIR%%/notifications/http/http.yaml.sample
 @sample %%ETCDIR%%/notifications/slack/slack.yaml.sample
 @sample %%ETCDIR%%/notifications/splunk/splunk.yaml.sample
@@ -39,6 +40,7 @@ bin/crowdsec-cli
 %%ETCDIR%%/patterns/tcpdump
 @sample etc/newsyslog.conf.d/crowdsec.conf.sample
 @mode 0755
+lib/crowdsec/plugins/notification-email
 lib/crowdsec/plugins/notification-http
 lib/crowdsec/plugins/notification-slack
 lib/crowdsec/plugins/notification-splunk

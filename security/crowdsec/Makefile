@@ -62,6 +62,7 @@ do-install:
 	${LN} -s cscli ${STAGE_BIN}/crowdsec-cli
 
 	@${MKDIR} ${STAGE_PLUGINS}
+	${INSTALL_PROGRAM} ${WRKSRC}/plugins/notifications/email/notification-email ${STAGE_PLUGINS}/
 	${INSTALL_PROGRAM} ${WRKSRC}/plugins/notifications/http/notification-http ${STAGE_PLUGINS}/
 	${INSTALL_PROGRAM} ${WRKSRC}/plugins/notifications/slack/notification-slack ${STAGE_PLUGINS}/
 	${INSTALL_PROGRAM} ${WRKSRC}/plugins/notifications/splunk/notification-splunk ${STAGE_PLUGINS}/
@@ -91,6 +92,10 @@ do-install:
 	#
 
 	@${MKDIR} ${STAGEDIR}${ETCDIR}/notifications
+
+	@${MKDIR} ${STAGEDIR}${ETCDIR}/notifications/email
+	@${MV} ${WRKSRC}/plugins/notifications/email/email.yaml \
+		${STAGEDIR}${ETCDIR}/notifications/email/email.yaml.sample
 
 	@${MKDIR} ${STAGEDIR}${ETCDIR}/notifications/http
 	@${MV} ${WRKSRC}/plugins/notifications/http/http.yaml \
