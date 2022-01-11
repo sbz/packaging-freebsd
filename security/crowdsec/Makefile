@@ -1,6 +1,6 @@
 PORTNAME=	crowdsec
-PORTVERSION=	1.2.2	# NOTE: change BUILD_VERSION and BUILD_TAG as well
-PORTREVISION=	3
+PORTVERSION=	1.2.3	# NOTE: change BUILD_VERSION and BUILD_TAG as well
+#PORTREVISION=	
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -19,7 +19,7 @@ USES=		gmake
 USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	crowdsec
-GH_TAGNAME=	v1.2.2-freebsd
+GH_TAGNAME=	v1.2.3-freebsd
 #GH_TAGNAME is automatically set from DISTVERSION
 
 USE_RC_SUBR=	crowdsec
@@ -29,8 +29,8 @@ SUB_FILES=	pkg-message \
 
 # BUILD_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
 # BUILD_TAG=$(git rev-parse HEAD)
-MAKE_ENV=	BUILD_VERSION="v1.2.2" \
-		BUILD_TAG="7865ec368e54e28b23b54a187b9f96999f361f12"
+MAKE_ENV=	BUILD_VERSION="v1.2.3" \
+		BUILD_TAG="a6e405422c732e9b6c46ae1004a2b80297df8336"
 
 PLUGIN_DIR=	${PREFIX}/lib/crowdsec/plugins
 STAGE_PLUGINS=	${STAGEDIR}${PLUGIN_DIR}
