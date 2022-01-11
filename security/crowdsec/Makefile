@@ -30,7 +30,7 @@ SUB_FILES=	pkg-message \
 # BUILD_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
 # BUILD_TAG=$(git rev-parse HEAD)
 MAKE_ENV=	BUILD_VERSION="v1.2.3" \
-		BUILD_TAG="a6e405422c732e9b6c46ae1004a2b80297df8336"
+		BUILD_TAG="fc4be1e0ffc5888f2824358464cb2426cd4472e1"
 
 PLUGIN_DIR=	${PREFIX}/lib/crowdsec/plugins
 STAGE_PLUGINS=	${STAGEDIR}${PLUGIN_DIR}
