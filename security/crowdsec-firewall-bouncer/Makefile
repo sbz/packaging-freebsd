@@ -1,6 +1,6 @@
 PORTNAME=	crowdsec-firewall-bouncer
-PORTVERSION=	0.0.20  # NOTE: change BUILD_VERSION and BUILD_TAG as well
-PORTREVISION=	3
+PORTVERSION=	0.0.22  # NOTE: change BUILD_VERSION and BUILD_TAG as well
+#PORTREVISION=	
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -20,7 +20,7 @@ RUN_DEPENDS=	crowdsec>0:security/crowdsec
 USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	cs-firewall-bouncer
-GH_TAGNAME=	v0.0.20-freebsd
+GH_TAGNAME=	v0.0.22-freebsd
 #GH_TAGNAME is automatically set from DISTVERSION
 
 USE_RC_SUBR=	crowdsec_firewall
@@ -30,8 +30,8 @@ SUB_FILES=	pkg-message \
 
 # BUILD_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
 # BUILD_TAG=$(git rev-parse HEAD)
-MAKE_ENV=	BUILD_VERSION="v0.0.20" \
-		BUILD_TAG="a456a4debdf3d3551c89b8490bb942f626027310"
+MAKE_ENV=	BUILD_VERSION="v0.0.22" \
+		BUILD_TAG="50336d1ecdd97b296c3d9d4f1604afd4d59c4c3f"
 
 ETCDIR=		${PREFIX}/etc/crowdsec/bouncers
 
