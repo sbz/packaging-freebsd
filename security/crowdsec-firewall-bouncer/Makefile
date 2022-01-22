@@ -1,6 +1,6 @@
 PORTNAME=	crowdsec-firewall-bouncer
 PORTVERSION=	0.0.22  # NOTE: change BUILD_VERSION and BUILD_TAG as well
-#PORTREVISION=	
+PORTREVISION=	1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -26,6 +26,7 @@ GH_TAGNAME=	v0.0.22-freebsd
 USE_RC_SUBR=	crowdsec_firewall
 
 SUB_FILES=	pkg-message \
+		pkg-install \
 		pkg-deinstall
 
 # BUILD_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
