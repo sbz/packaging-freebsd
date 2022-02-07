@@ -96,19 +96,19 @@ do-install:
 
 	@${MKDIR} ${STAGEDIR}${ETCDIR}/notifications/email
 	@${MV} ${WRKSRC}/plugins/notifications/email/email.yaml \
-		${STAGEDIR}${ETCDIR}/notifications/email/email.yaml.sample
+		${STAGEDIR}${ETCDIR}/notifications/email.yaml.sample
 
 	@${MKDIR} ${STAGEDIR}${ETCDIR}/notifications/http
 	@${MV} ${WRKSRC}/plugins/notifications/http/http.yaml \
-		${STAGEDIR}${ETCDIR}/notifications/http/http.yaml.sample
+		${STAGEDIR}${ETCDIR}/notifications/http.yaml.sample
 
 	@${MKDIR} ${STAGEDIR}${ETCDIR}/notifications/slack
 	@${MV} ${WRKSRC}/plugins/notifications/slack/slack.yaml \
-		${STAGEDIR}${ETCDIR}/notifications/slack/slack.yaml.sample
+		${STAGEDIR}${ETCDIR}/notifications/slack.yaml.sample
 
 	@${MKDIR} ${STAGEDIR}${ETCDIR}/notifications/splunk
 	@${MV} ${WRKSRC}/plugins/notifications/splunk/splunk.yaml \
-		${STAGEDIR}${ETCDIR}/notifications/splunk/splunk.yaml.sample
+		${STAGEDIR}${ETCDIR}/notifications/splunk.yaml.sample
 
 	# updated by "cscli machines" at first service start
 	@${MV} ${STAGEDIR}${ETCDIR}/local_api_credentials.yaml \
