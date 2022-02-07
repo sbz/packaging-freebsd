@@ -15,8 +15,6 @@ BUILD_DEPENDS=	git:devel/git@lite \
 
 USES=		gmake
 
-RUN_DEPENDS=	crowdsec>0:security/crowdsec
-
 USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	cs-firewall-bouncer
