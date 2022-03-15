@@ -4,8 +4,8 @@
 
 crowdsec-firewall-bouncer is installed.
 
-The bouncer should register itself but you may want to check the
-configuration file, which is now in %%ETCDIR%%/crowdsec-firewall-bouncer.yaml
+The bouncer should register itself with the Local API but you may want to check the
+configuration file, which has been moved to %%ETCDIR%%/crowdsec-firewall-bouncer.yaml
 (for consistency with the other platforms).
 
 In previous versions, the configuration was in /usr/local/etc/crowdsec-firewall-bouncer, you may need
@@ -24,7 +24,10 @@ Enabling pf.
 Add the following in /etc/pf.conf to create the firewall tables and rules:
 
 ----------
-anchor crowdsec
+table <crowdsec-blacklists> persist
+table <crowdsec6-blacklists> persist
+block drop in quick from <crowdsec-blacklists> to any
+block drop in quick from <crowdsec6-blacklists> to any
 ----------
 
 To apply the file:

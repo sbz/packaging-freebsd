@@ -1,6 +1,5 @@
 PORTNAME=	crowdsec-firewall-bouncer
-PORTVERSION=	0.0.22  # NOTE: change BUILD_VERSION and BUILD_TAG as well
-PORTREVISION=	1
+PORTVERSION=	0.0.23.r2  # NOTE: change BUILD_VERSION and BUILD_TAG as well
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -18,19 +17,15 @@ USES=		gmake
 USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	cs-firewall-bouncer
-GH_TAGNAME=	v0.0.22-freebsd
+GH_TAGNAME=	v0.0.23.r2-freebsd
 #GH_TAGNAME is automatically set from DISTVERSION
 
 USE_RC_SUBR=	crowdsec_firewall
 
-SUB_FILES=	pkg-message \
-		pkg-install \
-		pkg-deinstall
+SUB_FILES=	pkg-deinstall pkg-install pkg-message
 
-# BUILD_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
-# BUILD_TAG=$(git rev-parse HEAD)
-MAKE_ENV=	BUILD_VERSION="v0.0.22" \
-		BUILD_TAG="50336d1ecdd97b296c3d9d4f1604afd4d59c4c3f"
+MAKE_ENV=	BUILD_TAG="bc4bb1d531d47ad94ead2dce3a11f6391b1e8619" \
+		BUILD_VERSION="v0.0.23-rc2"
 
 ETCDIR=		${PREFIX}/etc/crowdsec/bouncers
 
@@ -53,11 +48,5 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${ETCDIR}
 	${INSTALL_DATA} ${WRKSRC}/config/crowdsec-firewall-bouncer.yaml \
 		${STAGEDIR}${ETCDIR}/crowdsec-firewall-bouncer.yaml.sample
-
-	#
-	# Log rotation
-	#
-
-	${INSTALL_DATA} ${FILESDIR}/crowdsec-firewall-bouncer.conf-newsyslog ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d/crowdsec-firewall-bouncer.conf.sample
 
 .include <bsd.port.mk>
