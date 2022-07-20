@@ -1,5 +1,5 @@
 PORTNAME=	crowdsec
-PORTVERSION=	1.3.4	# NOTE: change BUILD_VERSION and BUILD_TAG as well
+PORTVERSION=	1.4.0	# NOTE: change BUILD_VERSION and BUILD_TAG as well
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -9,33 +9,30 @@ COMMENT=	CrowdSec lightweight and collaborative security engine
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	git:devel/git@lite \
-		go:lang/go \
-		jq:textproc/jq
+BUILD_DEPENDS=	git:devel/git@lite
 
-USES=		gmake
-ALL_TARGET=	build
+USES=		gmake go:no_targets
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	crowdsec
-GH_TAGNAME=	v1.3.4-freebsd
+GH_TAGNAME=	v1.4.0-freebsd
 #GH_TAGNAME is automatically set from DISTVERSION
+USE_RC_SUBR=	crowdsec
+
+MAKE_ENV=	BUILD_VERSION="v1.4.0" \
+		BUILD_TAG="c600f710874a659a9fd56318fb20c8fda58f48ee" \
+		DEFAULT_CONFIGDIR="${PREFIX}/etc/crowdsec" \
+		DEFAULT_DATADIR="/var/db/crowdsec/data"
+ALL_TARGET=	build
+
+SUB_FILES=	pkg-deinstall pkg-install pkg-message
 
 OPTIONS_DEFINE=	FIREWALL_BOUNCER
 OPTIONS_DEFAULT=
 
 FIREWALL_BOUNCER_DESC=	Depend on security/crowdsec-firewall-bouncer
 FIREWALL_BOUNCER_RUN_DEPENDS=	crowdsec-firewall-bouncer>=0.0.23.r2:security/crowdsec-firewall-bouncer
-
-USE_RC_SUBR=	crowdsec
-
-SUB_FILES=	pkg-deinstall pkg-install pkg-message
-
-MAKE_ENV=	BUILD_VERSION="v1.3.4" \
-		BUILD_TAG="c196ed45b62c12d9c6549da927c37c64bd08c642" \
-		DEFAULT_CONFIGDIR="${PREFIX}/etc/crowdsec" \
-		DEFAULT_DATADIR="/var/db/crowdsec/data"
 
 PLUGIN_DIR=	${PREFIX}/lib/crowdsec/plugins
 STAGE_PLUGINS=	${STAGEDIR}${PLUGIN_DIR}
