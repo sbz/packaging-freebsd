@@ -1,5 +1,5 @@
 PORTNAME=	crowdsec
-PORTVERSION=	1.4.0	# NOTE: change BUILD_VERSION and BUILD_TAG as well
+PORTVERSION=	1.4.1	# NOTE: change BUILD_VERSION and BUILD_TAG as well
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -16,12 +16,12 @@ USES=		gmake go:no_targets
 USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	crowdsec
-GH_TAGNAME=	v1.4.0-freebsd
+GH_TAGNAME=	v1.4.1-freebsd
 #GH_TAGNAME is automatically set from DISTVERSION
 USE_RC_SUBR=	crowdsec
 
-MAKE_ENV=	BUILD_VERSION="v1.4.0" \
-		BUILD_TAG="c600f710874a659a9fd56318fb20c8fda58f48ee" \
+MAKE_ENV=	BUILD_VERSION="v1.4.1" \
+		BUILD_TAG="527995f2bb7b34b590d86bef9fe085fc290ff46d" \
 		DEFAULT_CONFIGDIR="${PREFIX}/etc/crowdsec" \
 		DEFAULT_DATADIR="/var/db/crowdsec/data"
 ALL_TARGET=	build
