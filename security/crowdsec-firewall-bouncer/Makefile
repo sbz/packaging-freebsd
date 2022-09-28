@@ -1,7 +1,7 @@
 PORTNAME=	crowdsec-firewall-bouncer
-PORTVERSION=	0.0.23.r2  # NOTE: change BUILD_VERSION and BUILD_TAG as well
-PORTREVISION=	4
 DISTVERSIONPREFIX=	v
+DISTVERSION=	0.0.24
+PORTREVISION=	1
 CATEGORIES=	security
 
 MAINTAINER=	marco@crowdsec.net
@@ -18,17 +18,14 @@ USES=		gmake go:no_targets
 USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	cs-firewall-bouncer
-GH_TAGNAME=	v0.0.23.r2-freebsd
-#GH_TAGNAME is automatically set from DISTVERSION
-
+GH_TAGNAME=	${DISTVERSIONFULL}-freebsd
+_BUILD_TAG=     65fb86a1
 USE_RC_SUBR=	crowdsec_firewall
 
-SUB_FILES=	pkg-deinstall pkg-install pkg-message
+MAKE_ENV=	BUILD_VERSION="${DISTVERSIONFULL}" \
+		BUILD_TAG="{_BUILD_TAG}"
 
-# BUILD_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
-# BUILD_TAG=$(git rev-parse HEAD)
-MAKE_ENV=	BUILD_TAG="bc4bb1d531d47ad94ead2dce3a11f6391b1e8619" \
-		BUILD_VERSION="v0.0.23-rc2"
+SUB_FILES=	pkg-deinstall pkg-install pkg-message
 
 ETCDIR=		${PREFIX}/etc/crowdsec/bouncers
 
