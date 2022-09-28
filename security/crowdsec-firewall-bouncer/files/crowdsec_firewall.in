@@ -16,9 +16,9 @@
 
 . /etc/rc.subr
 
-name="crowdsec_firewall"
+name=crowdsec_firewall
 desc="Crowdsec Firewall"
-rcvar="crowdsec_firewall_enable"
+rcvar=crowdsec_firewall_enable
 
 load_rc_config $name
 
@@ -26,7 +26,7 @@ load_rc_config $name
 : "${crowdsec_firewall_config:=%%ETCDIR%%/crowdsec-firewall-bouncer.yaml}"
 : "${crowdsec_firewall_flags:=}"
 
-pidfile="/var/run/${name}.pid"
+pidfile=/var/run/${name}.pid
 required_files="$crowdsec_firewall_config"
 command="%%PREFIX%%/bin/crowdsec-firewall-bouncer"
 start_cmd="${name}_start"

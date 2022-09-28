@@ -1,18 +1,19 @@
 PORTNAME=	crowdsec-firewall-bouncer
 PORTVERSION=	0.0.23.r2  # NOTE: change BUILD_VERSION and BUILD_TAG as well
+PORTREVISION=	4
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
 MAINTAINER=	marco@crowdsec.net
 COMMENT=	CrowdSec bouncer written in golang for firewalls
+WWW=		https://github.com/crowdsecurity/cs-firewall-bouncer
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	git:devel/git@lite \
-		go:lang/go
+BUILD_DEPENDS=	git:devel/git@lite
 
-USES=		gmake
+USES=		gmake go:no_targets
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
@@ -24,6 +25,8 @@ USE_RC_SUBR=	crowdsec_firewall
 
 SUB_FILES=	pkg-deinstall pkg-install pkg-message
 
+# BUILD_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
+# BUILD_TAG=$(git rev-parse HEAD)
 MAKE_ENV=	BUILD_TAG="bc4bb1d531d47ad94ead2dce3a11f6391b1e8619" \
 		BUILD_VERSION="v0.0.23-rc2"
 
