@@ -2,8 +2,8 @@
 
 case $2 in
        "DEINSTALL")
-               service crowdsec_firewall status && touch /var/run/crowdsec_firewall.running
-               service crowdsec_firewall stop || :
+               service crowdsec_mirror status && touch /var/run/crowdsec_mirror.running
+               service crowdsec_mirror stop || :
                ;;
 esac
 
