@@ -21,8 +21,9 @@ GH_TAGNAME=	${DISTVERSIONFULL}-freebsd
 _BUILD_TAG=     a7835bc0
 USE_RC_SUBR=	crowdsec_mirror
 
-MAKE_ENV=	BUILD_VERSION="${DISTVERSIONFULL}" \
-		BUILD_TAG="{_BUILD_TAG}"
+MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
+		BUILD_TAG="{_BUILD_TAG}" \
+		BUILD_VENDOR_FLAGS="-mod=vendor -modcacherw"
 
 SUB_FILES=	pkg-deinstall pkg-install pkg-message
 

@@ -22,10 +22,12 @@ GH_TAGNAME=	${DISTVERSIONFULL}-freebsd
 _BUILD_TAG=	527995f
 USE_RC_SUBR=	crowdsec
 
-MAKE_ENV=	BUILD_VERSION="${DISTVERSIONFULL}" \
+MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
 		BUILD_TAG="${_BUILD_TAG}" \
+		BUILD_VENDOR_FLAGS="-mod=vendor -modcacherw" \
 		DEFAULT_CONFIGDIR="${PREFIX}/etc/crowdsec" \
 		DEFAULT_DATADIR="/var/db/crowdsec/data"
+
 ALL_TARGET=	build
 
 SUB_FILES=	pkg-deinstall pkg-install pkg-message

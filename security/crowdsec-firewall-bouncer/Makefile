@@ -22,7 +22,7 @@ _BUILD_TAG=     65fb86a1
 USE_RC_SUBR=	crowdsec_firewall
 
 MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
-		BUILD_TAG="{_BUILD_TAG}" \
+		BUILD_TAG="${_BUILD_TAG}" \
 		BUILD_VENDOR_FLAGS="-mod=vendor -modcacherw"
 
 SUB_FILES=	pkg-deinstall pkg-install pkg-message
