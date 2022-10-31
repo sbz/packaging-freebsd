@@ -16,10 +16,11 @@ BUILD_DEPENDS=	git:devel/git@lite
 USES=		gmake go:no_targets
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	crowdsecurity
+GH_ACCOUNT=	mmetc
 GH_PROJECT=	crowdsec
-GH_TAGNAME=	${DISTVERSIONFULL}-freebsd
-_BUILD_TAG=	527995f
+#GH_TAGNAME=	${DISTVERSIONFULL}-freebsd
+GH_TAGNAME=	v1.4.2-freebsd-wip
+_BUILD_TAG=	c7b40b84
 USE_RC_SUBR=	crowdsec
 
 MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
@@ -30,7 +31,7 @@ MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
 
 ALL_TARGET=	build
 
-SUB_FILES=	pkg-deinstall pkg-install pkg-message
+SUB_FILES=	pkg-deinstall pkg-install pkg-message crowdsec.cron upgrade-hub
 
 OPTIONS_DEFINE=	FIREWALL_BOUNCER
 OPTIONS_DEFAULT=
@@ -50,6 +51,10 @@ post-patch:
 	@${REINPLACE_CMD} 's,/var/lib/,/var/db/,g' \
 		${WRKSRC}/config/config.yaml \
 		${WRKSRC}/config/profiles.yaml
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/cron.d
+	@${INSTALL_DATA} ${WRKDIR}/crowdsec.cron ${STAGEDIR}${PREFIX}/etc/cron.d/crowdsec
 
 do-install:
 	#
@@ -125,6 +130,14 @@ do-install:
 
 	@${MKDIR} ${STAGEDIR}${ETCDIR}/hub
 	@${MKDIR} ${STAGEDIR}/var/db/crowdsec/data
+
+	#
+	# Cron
+	#
+
+	@${MKDIR} ${STAGEDIR}${PREFIX}/libexec/crowdsec
+	${INSTALL_DATA} ${WRKDIR}/upgrade-hub \
+		${STAGEDIR}${PREFIX}/libexec/crowdsec/upgrade-hub
 
 	#
 	# Cleanup
