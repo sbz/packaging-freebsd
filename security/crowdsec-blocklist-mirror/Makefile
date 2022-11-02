@@ -18,7 +18,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	cs-blocklist-mirror
 GH_TAGNAME=	${DISTVERSIONFULL}-freebsd
-_BUILD_TAG=     56cb2fcf
+_BUILD_TAG=     24a43080
 USE_RC_SUBR=	crowdsec_mirror
 
 MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
