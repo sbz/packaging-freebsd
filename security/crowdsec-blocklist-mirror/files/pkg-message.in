@@ -4,8 +4,12 @@
 
 crowdsec-blocklist-mirror is installed.
 
-The bouncer should register itself with the Local API but you may want to check the
-configuration file, in %%ETCDIR%%/crowdsec-blocklist-mirror.yaml
+If you are running crowdsec on this machine, the bouncer will register itself with
+the Local API when it's started the first time.
+
+If the LAPI is on another machine, you need to manually register the bouncer
+and fill lapi_key and lapi_url in %%ETCDIR%%/crowdsec-blocklist-mirror.yaml before
+starting the service.
 
 Then activate the bouncer via sysrc and run it:
 
