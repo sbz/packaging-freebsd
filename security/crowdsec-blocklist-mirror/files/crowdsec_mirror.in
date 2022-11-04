@@ -37,7 +37,7 @@ crowdsec_mirror_precmd() {
     orig_line="lapi_key: \${API_KEY}"
     # IF the bouncer is not configured
     if grep -q "${orig_line}" "${crowdsec_mirror_config}"; then
-        SUFFIX=$(LC_CTYPE=C tr -dc A-Za-z0-9 </dev/urandom | head -c 8)
+        SUFFIX=$(jot -r -c 10 a z | rs -g0)
         BOUNCER="cs-blocklist-mirror-${SUFFIX}"
         # AND crowdsec is installed..
         if command -v "$CSCLI" >/dev/null; then
