@@ -22,7 +22,7 @@ _BUILD_TAG=     24a43080
 USE_RC_SUBR=	crowdsec_mirror
 
 MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
-		BUILD_TAG="{_BUILD_TAG}" \
+		BUILD_TAG="${_BUILD_TAG}" \
 		BUILD_VENDOR_FLAGS="-mod=vendor -modcacherw"
 
 SUB_FILES=	pkg-deinstall pkg-install pkg-message
