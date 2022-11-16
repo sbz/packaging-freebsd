@@ -1,7 +1,6 @@
 PORTNAME=	crowdsec
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.4.1
-PORTREVISION=	1
+DISTVERSION=	1.4.2
 CATEGORIES=	security
 
 MAINTAINER=	marco@crowdsec.net
@@ -16,11 +15,10 @@ BUILD_DEPENDS=	git:devel/git@lite
 USES=		gmake go:no_targets
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	mmetc
+GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	crowdsec
-#GH_TAGNAME=	${DISTVERSIONFULL}-freebsd
-GH_TAGNAME=	v1.4.2-freebsd-wip
-_BUILD_TAG=	c7b40b84
+GH_TAGNAME=	${DISTVERSIONFULL}-freebsd
+_BUILD_TAG=	6dc63b9e
 USE_RC_SUBR=	crowdsec
 
 MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
