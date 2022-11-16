@@ -2,6 +2,7 @@
 bin/crowdsec
 bin/cscli
 bin/crowdsec-cli
+libexec/crowdsec/upgrade-hub
 @mode 0600
 @sample %%ETCDIR%%/config.yaml.sample
 @sample %%ETCDIR%%/local_api_credentials.yaml.sample
@@ -39,6 +40,7 @@ bin/crowdsec-cli
 %%ETCDIR%%/patterns/smb
 %%ETCDIR%%/patterns/ssh
 %%ETCDIR%%/patterns/tcpdump
+etc/cron.d/crowdsec
 @mode 0755
 lib/crowdsec/plugins/notification-email
 lib/crowdsec/plugins/notification-http

@@ -1,7 +1,6 @@
 PORTNAME=	crowdsec
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.4.1
-PORTREVISION=	1
+DISTVERSION=	1.4.2
 CATEGORIES=	security
 
 MAINTAINER=	marco@crowdsec.net
@@ -19,16 +18,18 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	crowdsecurity
 GH_PROJECT=	crowdsec
 GH_TAGNAME=	${DISTVERSIONFULL}-freebsd
-_BUILD_TAG=	527995f
+_BUILD_TAG=	6dc63b9e
 USE_RC_SUBR=	crowdsec
 
-MAKE_ENV=	BUILD_VERSION="${DISTVERSIONFULL}" \
+MAKE_ARGS=	BUILD_VERSION="${DISTVERSIONFULL}" \
 		BUILD_TAG="${_BUILD_TAG}" \
+		BUILD_VENDOR_FLAGS="-mod=vendor -modcacherw" \
 		DEFAULT_CONFIGDIR="${PREFIX}/etc/crowdsec" \
 		DEFAULT_DATADIR="/var/db/crowdsec/data"
+
 ALL_TARGET=	build
 
-SUB_FILES=	pkg-deinstall pkg-install pkg-message
+SUB_FILES=	pkg-deinstall pkg-install pkg-message crowdsec.cron upgrade-hub
 
 OPTIONS_DEFINE=	FIREWALL_BOUNCER
 OPTIONS_DEFAULT=
@@ -48,6 +49,10 @@ post-patch:
 	@${REINPLACE_CMD} 's,/var/lib/,/var/db/,g' \
 		${WRKSRC}/config/config.yaml \
 		${WRKSRC}/config/profiles.yaml
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/cron.d
+	@${INSTALL_DATA} ${WRKDIR}/crowdsec.cron ${STAGEDIR}${PREFIX}/etc/cron.d/crowdsec
 
 do-install:
 	#
@@ -125,15 +130,24 @@ do-install:
 	@${MKDIR} ${STAGEDIR}/var/db/crowdsec/data
 
 	#
+	# Cron
+	#
+
+	@${MKDIR} ${STAGEDIR}${PREFIX}/libexec/crowdsec
+	${INSTALL_DATA} ${WRKDIR}/upgrade-hub \
+		${STAGEDIR}${PREFIX}/libexec/crowdsec/upgrade-hub
+
+	#
 	# Cleanup
 	#
 
+	@${RM} ${STAGEDIR}${ETCDIR}/acquis_win.yaml
+	@${RM} ${STAGEDIR}${ETCDIR}/config_win_no_lapi.yaml
+	@${RM} ${STAGEDIR}${ETCDIR}/config_win.yaml
+	@${RM} ${STAGEDIR}${ETCDIR}/crowdsec.cron.daily
 	@${RM} ${STAGEDIR}${ETCDIR}/crowdsec.service
 	@${RM} ${STAGEDIR}${ETCDIR}/dev.yaml
 	@${RM} ${STAGEDIR}${ETCDIR}/user.yaml
-	@${RM} ${STAGEDIR}${ETCDIR}/acquis_win.yaml
-	@${RM} ${STAGEDIR}${ETCDIR}/config_win.yaml
-	@${RM} ${STAGEDIR}${ETCDIR}/config_win_no_lapi.yaml
 	@${RMDIR} ${STAGEDIR}${ETCDIR}/notifications/email
 	@${RMDIR} ${STAGEDIR}${ETCDIR}/notifications/http
 	@${RMDIR} ${STAGEDIR}${ETCDIR}/notifications/slack
