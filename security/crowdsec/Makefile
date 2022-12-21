@@ -43,16 +43,10 @@ STAGE_BIN=	${STAGEDIR}${PREFIX}/bin
 
 post-patch:
 	@${REINPLACE_CMD} 's,/etc/crowdsec/,${ETCDIR}/,g' \
-		${WRKSRC}/config/config.yaml \
-		${WRKSRC}/config/profiles.yaml
+		${WRKSRC}/config/config.yaml
 
 	@${REINPLACE_CMD} 's,/var/lib/,/var/db/,g' \
-		${WRKSRC}/config/config.yaml \
-		${WRKSRC}/config/profiles.yaml
-
-post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/cron.d
-	@${INSTALL_DATA} ${WRKDIR}/crowdsec.cron ${STAGEDIR}${PREFIX}/etc/cron.d/crowdsec
+		${WRKSRC}/config/config.yaml
 
 do-install:
 	#
@@ -152,5 +146,9 @@ do-install:
 	@${RMDIR} ${STAGEDIR}${ETCDIR}/notifications/http
 	@${RMDIR} ${STAGEDIR}${ETCDIR}/notifications/slack
 	@${RMDIR} ${STAGEDIR}${ETCDIR}/notifications/splunk
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/cron.d
+	${INSTALL_DATA} ${WRKDIR}/crowdsec.cron ${STAGEDIR}${PREFIX}/etc/cron.d/crowdsec
 
 .include <bsd.port.mk>
