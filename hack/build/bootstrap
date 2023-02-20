@@ -1,0 +1,36 @@
+#!/bin/sh
+
+set -eu
+
+pkg install python
+
+mkdir -p /usr/local/etc/ssl/certs
+mkdir -p /usr/local/etc/ssl/keys
+chmod 0600 /usr/local/etc/ssl/keys
+
+if test ! -f "/usr/local/etc/ssl/keys/poudriere.key"; then
+    openssl genrsa -out /usr/local/etc/ssl/keys/poudriere.key 4096
+    chmod 0600 /usr/local/etc/ssl/keys/poudriere.key
+fi
+
+if test ! -f "/usr/local/etc/ssl/certs/poudriere.certs.key"; then
+    openssl rsa -in /usr/local/etc/ssl/keys/poudriere.key -pubout -out /usr/local/etc/ssl/certs/poudriere.certs
+fi
+
+pkg install poudriere git
+# /usr/local/etc/poudriere.conf
+# USE_PORTLINT=no
+
+exit 0
+
+poudriere jail -c -j 132Samd64 -v 13.2-STABLE -a amd64
+poudriere ports -c -m git+https -B main -p HEAD
+
+cat <<EOT >/root/port_list
+security/crowdsec
+security/crowdsec-firewall-bouncer
+security/crowdsec-blocklist-mirror
+EOT
+
+poudriere bulk -j 132Samd64 -p HEAD -f /root/port_list
+
